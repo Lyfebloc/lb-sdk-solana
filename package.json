@@ -1,6 +1,6 @@
 {
   "name": "@lyfebloc/lb-sdk-solana",
-  "version": "8.0.0",
+  "version": "9.0.0",
   "description": "an sdk for amm on solana",
   "keywords": [
     "lyfebloc",
