@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "types": ["mocha", "chai", "bn.js"],
+    "typeRoots": ["./node_modules/@types"],
+    "lib": ["es2015", "es2020"],
+    "module": "commonjs",
+    "target": "es6",
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "declaration": true,
+    "declarationMap": true
+  },
+  "exclude": [
+    "node_modules/**",
+    "tests",
+    "examples",
+    "dist"
+  ]
+}

@@ -1,0 +1,40 @@
+name: Solana SDK
+on:
+  pull_request:
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  anchor:
+    runs-on: [self-hosted]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node.js 16.15
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.15
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - name: Install dependencies
+        run: |
+          #!/bin/bash
+
+          npm install --global yarn
+          yarn
+
+          sh -c "$(curl -sSfL https://release.solana.com/v1.9.28/install)"
+          export PATH="/root/.local/share/solana/install/active_release/bin:$PATH"
+          apt-get update && apt-get install -y pkg-config build-essential libudev-dev
+
+          cargo install --git https://github.com/project-serum/anchor --tag v0.24.2 anchor-cli --locked
+
+      - name: Run test
+        if: github.event_name == 'pull_request'
+        run: |
+          #!/bin/bash
+
+          export PATH="/root/.local/share/solana/install/active_release/bin:$PATH"
+          solana-keygen new --force --silent
+          anchor test
